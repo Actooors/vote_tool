@@ -10,3 +10,7 @@ server:
   servlet:
     context-path: /api
   port: 8080
+
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.gmr.vote.model.entity
