@@ -3,14 +3,14 @@ package com.gmr.vote.model.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CandidateExample {
+public class GroupCandidateExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public CandidateExample() {
+    public GroupCandidateExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -104,73 +104,73 @@ public class CandidateExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andCandidateNameIsNull() {
-            addCriterion("candidate_name is null");
+        public Criteria andGroupCandidateNameIsNull() {
+            addCriterion("group_candidate_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andCandidateNameIsNotNull() {
-            addCriterion("candidate_name is not null");
+        public Criteria andGroupCandidateNameIsNotNull() {
+            addCriterion("group_candidate_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCandidateNameEqualTo(String value) {
-            addCriterion("candidate_name =", value, "candidateName");
+        public Criteria andGroupCandidateNameEqualTo(String value) {
+            addCriterion("group_candidate_name =", value, "groupCandidateName");
             return (Criteria) this;
         }
 
-        public Criteria andCandidateNameNotEqualTo(String value) {
-            addCriterion("candidate_name <>", value, "candidateName");
+        public Criteria andGroupCandidateNameNotEqualTo(String value) {
+            addCriterion("group_candidate_name <>", value, "groupCandidateName");
             return (Criteria) this;
         }
 
-        public Criteria andCandidateNameGreaterThan(String value) {
-            addCriterion("candidate_name >", value, "candidateName");
+        public Criteria andGroupCandidateNameGreaterThan(String value) {
+            addCriterion("group_candidate_name >", value, "groupCandidateName");
             return (Criteria) this;
         }
 
-        public Criteria andCandidateNameGreaterThanOrEqualTo(String value) {
-            addCriterion("candidate_name >=", value, "candidateName");
+        public Criteria andGroupCandidateNameGreaterThanOrEqualTo(String value) {
+            addCriterion("group_candidate_name >=", value, "groupCandidateName");
             return (Criteria) this;
         }
 
-        public Criteria andCandidateNameLessThan(String value) {
-            addCriterion("candidate_name <", value, "candidateName");
+        public Criteria andGroupCandidateNameLessThan(String value) {
+            addCriterion("group_candidate_name <", value, "groupCandidateName");
             return (Criteria) this;
         }
 
-        public Criteria andCandidateNameLessThanOrEqualTo(String value) {
-            addCriterion("candidate_name <=", value, "candidateName");
+        public Criteria andGroupCandidateNameLessThanOrEqualTo(String value) {
+            addCriterion("group_candidate_name <=", value, "groupCandidateName");
             return (Criteria) this;
         }
 
-        public Criteria andCandidateNameLike(String value) {
-            addCriterion("candidate_name like", value, "candidateName");
+        public Criteria andGroupCandidateNameLike(String value) {
+            addCriterion("group_candidate_name like", value, "groupCandidateName");
             return (Criteria) this;
         }
 
-        public Criteria andCandidateNameNotLike(String value) {
-            addCriterion("candidate_name not like", value, "candidateName");
+        public Criteria andGroupCandidateNameNotLike(String value) {
+            addCriterion("group_candidate_name not like", value, "groupCandidateName");
             return (Criteria) this;
         }
 
-        public Criteria andCandidateNameIn(List<String> values) {
-            addCriterion("candidate_name in", values, "candidateName");
+        public Criteria andGroupCandidateNameIn(List<String> values) {
+            addCriterion("group_candidate_name in", values, "groupCandidateName");
             return (Criteria) this;
         }
 
-        public Criteria andCandidateNameNotIn(List<String> values) {
-            addCriterion("candidate_name not in", values, "candidateName");
+        public Criteria andGroupCandidateNameNotIn(List<String> values) {
+            addCriterion("group_candidate_name not in", values, "groupCandidateName");
             return (Criteria) this;
         }
 
-        public Criteria andCandidateNameBetween(String value1, String value2) {
-            addCriterion("candidate_name between", value1, value2, "candidateName");
+        public Criteria andGroupCandidateNameBetween(String value1, String value2) {
+            addCriterion("group_candidate_name between", value1, value2, "groupCandidateName");
             return (Criteria) this;
         }
 
-        public Criteria andCandidateNameNotBetween(String value1, String value2) {
-            addCriterion("candidate_name not between", value1, value2, "candidateName");
+        public Criteria andGroupCandidateNameNotBetween(String value1, String value2) {
+            addCriterion("group_candidate_name not between", value1, value2, "groupCandidateName");
             return (Criteria) this;
         }
 

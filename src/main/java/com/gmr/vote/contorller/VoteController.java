@@ -2,8 +2,9 @@ package com.gmr.vote.contorller;
 
 import com.gmr.vote.model.Jsonrequestbody.CandidateVote;
 import com.gmr.vote.model.OV.Result;
+import com.gmr.vote.service.GroupCandidateService;
 import org.springframework.web.bind.annotation.*;
-import com.gmr.vote.service.CandidateService;
+import com.gmr.vote.service.PartyCandidateService;
 
 import javax.annotation.Resource;
 
@@ -18,15 +19,28 @@ import javax.annotation.Resource;
 @RequestMapping(value = "vote")
 public class VoteController {
     @Resource
-    private CandidateService candidateService;
+    private PartyCandidateService partyCandidateService;
 
-    @RequestMapping(value = "pullVote", method = RequestMethod.POST)
-    public Result vote(@RequestBody CandidateVote candidateVote) {
-        return candidateService.vote(candidateVote);
+    @Resource
+    private GroupCandidateService groupCandidateService;
+
+    @RequestMapping(value = "groupPullVote", method = RequestMethod.POST)
+    public Result groupVote(@RequestBody CandidateVote candidateVote) {
+        return groupCandidateService.groupVote(candidateVote);
     }
 
-    @RequestMapping(value = "voteMessage", method = RequestMethod.GET)
-    public Result getVotes(@RequestParam(value = "order") Integer order) {
-        return candidateService.getVotes(order);
+    @RequestMapping(value = "partyPullVote", method = RequestMethod.POST)
+    public Result partyVote(@RequestBody CandidateVote candidateVote) {
+        return partyCandidateService.partyVote(candidateVote);
+    }
+
+    @RequestMapping(value = "partyVote", method = RequestMethod.GET)
+    public Result getPartyVotes(@RequestParam(value = "order") Integer order) {
+        return partyCandidateService.getVotes(order);
+    }
+
+    @RequestMapping(value = "groupVote", method = RequestMethod.GET)
+    public Result getGroupVotes(@RequestParam(value = "order") Integer order) {
+        return groupCandidateService.getVotes(order);
     }
 }
