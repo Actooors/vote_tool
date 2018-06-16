@@ -12,5 +12,5 @@ import java.util.List;
  */
 @Data
 public class CandidateVote {
-    List<VoteMessage> voteMessageList;
+    List<VoteMessage> data;
 }

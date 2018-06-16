@@ -43,4 +43,14 @@ public class VoteController {
     public Result getGroupVotes(@RequestParam(value = "order") Integer order) {
         return groupCandidateService.getVotes(order);
     }
+
+    @RequestMapping(value = "groupName", method = RequestMethod.GET)
+    public Result getGroupName() {
+        return groupCandidateService.getName();
+    }
+
+    @RequestMapping(value = "partyName", method = RequestMethod.GET)
+    public Result getPartyName() {
+        return partyCandidateService.getName();
+    }
 }

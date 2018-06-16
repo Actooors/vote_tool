@@ -5,6 +5,7 @@ import com.gmr.vote.model.Jsonrequestbody.CandidateVote;
 import com.gmr.vote.model.Jsonrequestbody.VoteMessage;
 import com.gmr.vote.model.OV.Result;
 import com.gmr.vote.model.OV.VoteInformation;
+import com.gmr.vote.model.OV.Voters;
 import com.gmr.vote.model.ResultTool;
 import com.gmr.vote.model.entity.PartyCandidate;
 import com.gmr.vote.model.entity.PartyCandidateExample;
@@ -35,7 +36,7 @@ public class PartyCandidateService {
      * @Date: 18-6-16
      */
     public Result partyVote(CandidateVote vote) {
-        List<VoteMessage> voteList = vote.getVoteMessageList();
+        List<VoteMessage> voteList = vote.getData();
         if(voteList.isEmpty()) {
             return ResultTool.error("给予的投票内容为空");
         }
@@ -76,6 +77,22 @@ public class PartyCandidateService {
             voteInformationList.add(voteInformation);
         }
         return ResultTool.success(voteInformationList);
+    }
+
+    public Result getName() {
+        PartyCandidateExample partyCandidateExample = new PartyCandidateExample();
+        partyCandidateExample.createCriteria()
+                .andPartyCandidateNameIsNotNull();
+        List<PartyCandidate> partyCandidatesList = partyCandidateMapper.selectByExample(partyCandidateExample);
+
+
+        List<Voters> votersList = new ArrayList<>();
+        for(PartyCandidate partyCandidate : partyCandidatesList) {
+            Voters voters = new Voters();
+            voters.setName(partyCandidate.getPartyCandidateName());
+            votersList.add(voters);
+        }
+        return ResultTool.success(votersList);
     }
 
 }

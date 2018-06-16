@@ -5,6 +5,7 @@ import com.gmr.vote.model.Jsonrequestbody.CandidateVote;
 import com.gmr.vote.model.Jsonrequestbody.VoteMessage;
 import com.gmr.vote.model.OV.Result;
 import com.gmr.vote.model.OV.VoteInformation;
+import com.gmr.vote.model.OV.Voters;
 import com.gmr.vote.model.ResultTool;
 import com.gmr.vote.model.entity.GroupCandidate;
 import com.gmr.vote.model.entity.GroupCandidateExample;
@@ -34,7 +35,7 @@ public class GroupCandidateService {
      * @Date: 18-6-16
      */
     public Result groupVote(CandidateVote vote) {
-        List<VoteMessage> voteList = vote.getVoteMessageList();
+        List<VoteMessage> voteList = vote.getData();
         if(voteList.isEmpty()) {
             return ResultTool.error("给予的投票内容为空");
         }
@@ -47,6 +48,8 @@ public class GroupCandidateService {
         }
         return ResultTool.success();
     }
+
+
 
     /**
      * @Description: 返回候选人得票信息。
@@ -75,6 +78,23 @@ public class GroupCandidateService {
             voteInformationList.add(voteInformation);
         }
         return ResultTool.success(voteInformationList);
+    }
+
+
+    public Result getName() {
+        GroupCandidateExample groupCandidateExample = new GroupCandidateExample();
+        groupCandidateExample.createCriteria()
+                .andGroupCandidateNameIsNotNull();
+        List<GroupCandidate> groupCandidatesList = groupCandidateMapper.selectByExample(groupCandidateExample);
+
+
+        List<Voters> votersList = new ArrayList<>();
+        for(GroupCandidate groupCandidate : groupCandidatesList) {
+            Voters voters = new Voters();
+            voters.setName(groupCandidate.getGroupCandidateName());
+            votersList.add(voters);
+        }
+        return ResultTool.success(votersList);
     }
 
 }
