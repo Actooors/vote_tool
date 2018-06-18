@@ -1,6 +1,7 @@
 package com.gmr.vote.contorller;
 
 import com.gmr.vote.model.Jsonrequestbody.CandidateVote;
+import com.gmr.vote.model.Jsonrequestbody.Order;
 import com.gmr.vote.model.OV.Result;
 import com.gmr.vote.service.GroupCandidateService;
 import org.springframework.web.bind.annotation.*;
@@ -34,22 +35,22 @@ public class VoteController {
         return partyCandidateService.partyVote(candidateVote);
     }
 
-    @RequestMapping(value = "partyVote", method = RequestMethod.GET)
-    public Result getPartyVotes(@RequestParam(value = "order") Integer order) {
+    @RequestMapping(value = "partyVote", method = RequestMethod.POST)
+    public Result getPartyVotes(@RequestBody Order order) {
         return partyCandidateService.getVotes(order);
     }
 
-    @RequestMapping(value = "groupVote", method = RequestMethod.GET)
-    public Result getGroupVotes(@RequestParam(value = "order") Integer order) {
+    @RequestMapping(value = "groupVote", method = RequestMethod.POST)
+    public Result getGroupVotes(@RequestBody Order order) {
         return groupCandidateService.getVotes(order);
     }
 
-    @RequestMapping(value = "groupName", method = RequestMethod.GET)
+    @RequestMapping(value = "groupName", method = RequestMethod.POST)
     public Result getGroupName() {
         return groupCandidateService.getName();
     }
 
-    @RequestMapping(value = "partyName", method = RequestMethod.GET)
+    @RequestMapping(value = "partyName", method = RequestMethod.POST)
     public Result getPartyName() {
         return partyCandidateService.getName();
     }

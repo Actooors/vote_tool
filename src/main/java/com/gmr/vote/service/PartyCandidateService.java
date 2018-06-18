@@ -2,6 +2,7 @@ package com.gmr.vote.service;
 
 import com.gmr.vote.dao.PartyCandidateMapper;
 import com.gmr.vote.model.Jsonrequestbody.CandidateVote;
+import com.gmr.vote.model.Jsonrequestbody.Order;
 import com.gmr.vote.model.Jsonrequestbody.VoteMessage;
 import com.gmr.vote.model.OV.Result;
 import com.gmr.vote.model.OV.VoteInformation;
@@ -59,7 +60,8 @@ public class PartyCandidateService {
      * @Author: ggmr
      * @Date: 18-6-16
      */
-    public Result getVotes(Integer judge) {
+    public Result getVotes(Order order) {
+        Integer judge = order.getOrder();
         PartyCandidateExample partyCandidateExample = new PartyCandidateExample();
         partyCandidateExample.createCriteria()
                 .andPartyCandidateNameIsNotNull();
