@@ -303,6 +303,126 @@ public class UserExample {
             addCriterion("type not between", value1, value2, "type");
             return (Criteria) this;
         }
+
+        public Criteria andPartyCountNumIsNull() {
+            addCriterion("party_count_num is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPartyCountNumIsNotNull() {
+            addCriterion("party_count_num is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPartyCountNumEqualTo(Integer value) {
+            addCriterion("party_count_num =", value, "partyCountNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPartyCountNumNotEqualTo(Integer value) {
+            addCriterion("party_count_num <>", value, "partyCountNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPartyCountNumGreaterThan(Integer value) {
+            addCriterion("party_count_num >", value, "partyCountNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPartyCountNumGreaterThanOrEqualTo(Integer value) {
+            addCriterion("party_count_num >=", value, "partyCountNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPartyCountNumLessThan(Integer value) {
+            addCriterion("party_count_num <", value, "partyCountNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPartyCountNumLessThanOrEqualTo(Integer value) {
+            addCriterion("party_count_num <=", value, "partyCountNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPartyCountNumIn(List<Integer> values) {
+            addCriterion("party_count_num in", values, "partyCountNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPartyCountNumNotIn(List<Integer> values) {
+            addCriterion("party_count_num not in", values, "partyCountNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPartyCountNumBetween(Integer value1, Integer value2) {
+            addCriterion("party_count_num between", value1, value2, "partyCountNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andPartyCountNumNotBetween(Integer value1, Integer value2) {
+            addCriterion("party_count_num not between", value1, value2, "partyCountNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupCountNumIsNull() {
+            addCriterion("group_count_num is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupCountNumIsNotNull() {
+            addCriterion("group_count_num is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupCountNumEqualTo(Integer value) {
+            addCriterion("group_count_num =", value, "groupCountNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupCountNumNotEqualTo(Integer value) {
+            addCriterion("group_count_num <>", value, "groupCountNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupCountNumGreaterThan(Integer value) {
+            addCriterion("group_count_num >", value, "groupCountNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupCountNumGreaterThanOrEqualTo(Integer value) {
+            addCriterion("group_count_num >=", value, "groupCountNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupCountNumLessThan(Integer value) {
+            addCriterion("group_count_num <", value, "groupCountNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupCountNumLessThanOrEqualTo(Integer value) {
+            addCriterion("group_count_num <=", value, "groupCountNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupCountNumIn(List<Integer> values) {
+            addCriterion("group_count_num in", values, "groupCountNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupCountNumNotIn(List<Integer> values) {
+            addCriterion("group_count_num not in", values, "groupCountNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupCountNumBetween(Integer value1, Integer value2) {
+            addCriterion("group_count_num between", value1, value2, "groupCountNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupCountNumNotBetween(Integer value1, Integer value2) {
+            addCriterion("group_count_num not between", value1, value2, "groupCountNum");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

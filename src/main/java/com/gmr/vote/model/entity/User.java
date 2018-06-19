@@ -7,6 +7,10 @@ public class User {
 
     private Integer type;
 
+    private Integer partyCountNum;
+
+    private Integer groupCountNum;
+
     public String getUserId() {
         return userId;
     }
@@ -29,5 +33,21 @@ public class User {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public Integer getPartyCountNum() {
+        return partyCountNum;
+    }
+
+    public void setPartyCountNum(Integer partyCountNum) {
+        this.partyCountNum = partyCountNum;
+    }
+
+    public Integer getGroupCountNum() {
+        return groupCountNum;
+    }
+
+    public void setGroupCountNum(Integer groupCountNum) {
+        this.groupCountNum = groupCountNum;
     }
 }

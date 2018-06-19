@@ -5,6 +5,8 @@
     <id column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="party_count_num" property="partyCountNum" jdbcType="INTEGER" />
+    <result column="group_count_num" property="groupCountNum" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -65,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    user_id, password, type
+    user_id, password, type, party_count_num, group_count_num
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gmr.vote.model.entity.UserExample" >
     select
@@ -99,10 +101,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gmr.vote.model.entity.User" >
-    insert into user (user_id, password, type
-      )
-    values (#{userId,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}
-      )
+    insert into user (user_id, password, type, 
+      party_count_num, group_count_num)
+    values (#{userId,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{partyCountNum,jdbcType=INTEGER}, #{groupCountNum,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.gmr.vote.model.entity.User" >
     insert into user
@@ -116,6 +118,12 @@
       <if test="type != null" >
         type,
       </if>
+      <if test="partyCountNum != null" >
+        party_count_num,
+      </if>
+      <if test="groupCountNum != null" >
+        group_count_num,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
@@ -126,6 +134,12 @@
       </if>
       <if test="type != null" >
         #{type,jdbcType=INTEGER},
+      </if>
+      <if test="partyCountNum != null" >
+        #{partyCountNum,jdbcType=INTEGER},
+      </if>
+      <if test="groupCountNum != null" >
+        #{groupCountNum,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -147,6 +161,12 @@
       <if test="record.type != null" >
         type = #{record.type,jdbcType=INTEGER},
       </if>
+      <if test="record.partyCountNum != null" >
+        party_count_num = #{record.partyCountNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.groupCountNum != null" >
+        group_count_num = #{record.groupCountNum,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -156,7 +176,9 @@
     update user
     set user_id = #{record.userId,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
-      type = #{record.type,jdbcType=INTEGER}
+      type = #{record.type,jdbcType=INTEGER},
+      party_count_num = #{record.partyCountNum,jdbcType=INTEGER},
+      group_count_num = #{record.groupCountNum,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -170,13 +192,21 @@
       <if test="type != null" >
         type = #{type,jdbcType=INTEGER},
       </if>
+      <if test="partyCountNum != null" >
+        party_count_num = #{partyCountNum,jdbcType=INTEGER},
+      </if>
+      <if test="groupCountNum != null" >
+        group_count_num = #{groupCountNum,jdbcType=INTEGER},
+      </if>
     </set>
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gmr.vote.model.entity.User" >
     update user
     set password = #{password,jdbcType=VARCHAR},
-      type = #{type,jdbcType=INTEGER}
+      type = #{type,jdbcType=INTEGER},
+      party_count_num = #{partyCountNum,jdbcType=INTEGER},
+      group_count_num = #{groupCountNum,jdbcType=INTEGER}
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
 </mapper>

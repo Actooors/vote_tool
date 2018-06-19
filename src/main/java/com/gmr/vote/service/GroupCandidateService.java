@@ -1,6 +1,7 @@
 package com.gmr.vote.service;
 
 import com.gmr.vote.dao.GroupCandidateMapper;
+import com.gmr.vote.dao.UserMapper;
 import com.gmr.vote.model.Jsonrequestbody.CandidateVote;
 import com.gmr.vote.model.Jsonrequestbody.Order;
 import com.gmr.vote.model.Jsonrequestbody.VoteMessage;
@@ -10,6 +11,7 @@ import com.gmr.vote.model.OV.Voters;
 import com.gmr.vote.model.ResultTool;
 import com.gmr.vote.model.entity.GroupCandidate;
 import com.gmr.vote.model.entity.GroupCandidateExample;
+import com.gmr.vote.model.entity.User;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,6 +30,8 @@ public class GroupCandidateService {
     @Resource
     private GroupCandidateMapper groupCandidateMapper;
 
+    @Resource
+    private UserMapper userMapper;
     /**
      * @Description: 具体实现类
      * @Param: [voteList]
@@ -35,7 +39,7 @@ public class GroupCandidateService {
      * @Author: ggmr
      * @Date: 18-6-16
      */
-    public Result groupVote(CandidateVote vote) {
+    public Result groupVote(String userId, CandidateVote vote) {
         List<VoteMessage> voteList = vote.getData();
         if(voteList.isEmpty()) {
             return ResultTool.error("给予的投票内容为空");
@@ -47,6 +51,9 @@ public class GroupCandidateService {
                 groupCandidateMapper.updateByPrimaryKeySelective(groupCandidate);
             }
         }
+        User user = userMapper.selectByPrimaryKey(userId);
+        user.setGroupCountNum(user.getGroupCountNum() + 1);
+        userMapper.updateByPrimaryKeySelective(user);
         return ResultTool.success();
     }
 

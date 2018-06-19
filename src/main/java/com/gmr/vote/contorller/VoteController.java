@@ -5,6 +5,7 @@ import com.gmr.vote.model.Jsonrequestbody.Order;
 import com.gmr.vote.model.OV.Result;
 import com.gmr.vote.model.ResultTool;
 import com.gmr.vote.service.GroupCandidateService;
+import com.gmr.vote.tools.JwtUtil;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
 import com.gmr.vote.service.PartyCandidateService;
@@ -34,7 +35,8 @@ public class VoteController {
         if(token == null) {
             return ResultTool.error("请登录");
         }
-        return groupCandidateService.groupVote(candidateVote);
+        String userId = JwtUtil.parseJwt(token);
+        return groupCandidateService.groupVote(userId, candidateVote);
     }
 
     @RequestMapping(value = "partyPullVote", method = RequestMethod.POST)
@@ -44,7 +46,8 @@ public class VoteController {
         if(token == null) {
             return ResultTool.error("请登录");
         }
-        return partyCandidateService.partyVote(candidateVote);
+        String userId = JwtUtil.parseJwt(token);
+        return partyCandidateService.partyVote(userId, candidateVote);
     }
 
     @RequestMapping(value = "partyVote", method = RequestMethod.POST)
