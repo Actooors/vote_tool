@@ -45,7 +45,7 @@ public class VoteController {
     @RequestMapping(value = "partyPullVote", method = RequestMethod.POST)
     public Result partyVote(HttpServletRequest httpServletRequest,
                             @RequestBody CandidateVote candidateVote) {
-        String token = httpServletRequest.getHeader("Authorizaiton");
+        String token = httpServletRequest.getHeader("Authorization");
         if(token == null) {
             return ResultTool.error("请登录");
         }
@@ -56,7 +56,7 @@ public class VoteController {
     @RequestMapping(value = "partyVote", method = RequestMethod.POST)
     public Result getPartyVotes(HttpServletRequest httpServletRequest,
                                 @RequestBody Order order) {
-        String token = httpServletRequest.getHeader("Authorizaiton");
+        String token = httpServletRequest.getHeader("Authorization");
         if(token == null) {
             return ResultTool.error("请登录");
         }
@@ -66,7 +66,7 @@ public class VoteController {
     @RequestMapping(value = "groupVote", method = RequestMethod.POST)
     public Result getGroupVotes(HttpServletRequest httpServletRequest,
                                 @RequestBody Order order) {
-        String token = httpServletRequest.getHeader("Authorizaiton");
+        String token = httpServletRequest.getHeader("Authorization");
         if(token == null) {
             return ResultTool.error("请登录");
         }
@@ -75,7 +75,7 @@ public class VoteController {
 
     @RequestMapping(value = "groupName", method = RequestMethod.POST)
     public Result getGroupName(HttpServletRequest httpServletRequest) {
-        String token = httpServletRequest.getHeader("Authorizaiton");
+        String token = httpServletRequest.getHeader("Authorization");
         if(token == null) {
             return ResultTool.error("请登录");
         }
@@ -85,7 +85,7 @@ public class VoteController {
     @RequestMapping(value = "partyPercentage", method = RequestMethod.POST)
     public Result getPartyPercentage(HttpServletRequest httpServletRequest,
                                      @RequestBody Order order) {
-        String token = httpServletRequest.getHeader("Authorizaiton");
+        String token = httpServletRequest.getHeader("Authorization");
         if(token == null) {
             return ResultTool.error("请登录");
         }
@@ -95,7 +95,7 @@ public class VoteController {
     @RequestMapping(value = "groupPercentage", method = RequestMethod.POST)
     public Result getGroupPercentage(HttpServletRequest httpServletRequest,
                                      @RequestBody Order order) {
-        String token = httpServletRequest.getHeader("Authorizaiton");
+        String token = httpServletRequest.getHeader("Authorization");
         if(token == null) {
             return ResultTool.error("请登录");
         }
@@ -105,7 +105,7 @@ public class VoteController {
     @RequestMapping(value = "" +
             "", method = RequestMethod.POST)
     public Result getPartyName(HttpServletRequest httpServletRequest) {
-        String token = httpServletRequest.getHeader("Authorizaiton");
+        String token = httpServletRequest.getHeader("Authorization");
         if(token == null) {
             return ResultTool.error("请登录");
         }

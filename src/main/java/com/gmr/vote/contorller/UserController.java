@@ -27,7 +27,7 @@ public class UserController {
 
     @RequestMapping(value = "partyVoteNum", method = RequestMethod.POST)
     public Result getPartyVoteNum(HttpServletRequest httpServletRequest) {
-        String token = httpServletRequest.getHeader("Authorizaiton");
+        String token = httpServletRequest.getHeader("Authorization");
         if(token == null) {
             return ResultTool.error("请登录");
         }
@@ -37,7 +37,7 @@ public class UserController {
 
     @RequestMapping(value = "groupVoteNum", method = RequestMethod.POST)
     public Result getGroupVoteNum(HttpServletRequest httpServletRequest) {
-        String token = httpServletRequest.getHeader("Authorizaiton");
+        String token = httpServletRequest.getHeader("Authorization");
         if(token == null) {
             return ResultTool.error("请登录");
         }
