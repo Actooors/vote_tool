@@ -69,6 +69,17 @@ public class PartyCandidateService {
         return ResultTool.success();
     }
 
+    /**
+     * @Description: 获得所有的投票数
+     * @Param: []
+     * @Return: com.gmr.vote.model.OV.Result
+     * @Author: ggmr
+     * @Date: 18-6-21
+     */
+    public Result getAllPartyVoteNum() {
+        return ResultTool.success(voteNumberMapper.selectByPrimaryKey(-1).getPartyNum());
+    }
+
 
     public Result getPartyPercent(Order order) {
         Integer all = voteNumberMapper.selectByPrimaryKey(-1).getPartyNum();

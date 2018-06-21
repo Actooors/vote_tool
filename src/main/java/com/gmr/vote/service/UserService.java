@@ -50,6 +50,7 @@ public class UserService {
     }
 
 
+
     public Result login(LoginUser user) {
         if (user == null || user.getUid() == null || "".equals(user.getUid()) || user.getPassword() == null || "".equals(user.getPassword())) {
             return ResultTool.error("账号或密码不能为空");

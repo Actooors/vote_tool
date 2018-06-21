@@ -68,6 +68,18 @@ public class GroupCandidateService {
         return ResultTool.success();
     }
 
+    /**
+     * @Description: 获得所有的投票数
+     * @Param: []
+     * @Return: com.gmr.vote.model.OV.Result
+     * @Author: ggmr
+     * @Date: 18-6-21
+     */
+    public Result getAllGroupVoteNum() {
+        return ResultTool.success(voteNumberMapper.selectByPrimaryKey(-1).getGroupNum());
+    }
+
+
     public Result getGroupPercent(Order order) {
 
         Integer all = voteNumberMapper.selectByPrimaryKey(-1).getGroupNum();

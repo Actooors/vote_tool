@@ -111,5 +111,24 @@ public class VoteController {
         return groupCandidateService.getGroupPercent(order);
     }
 
+    @RequestMapping(value = "groupAllvoteNum", method = RequestMethod.GET)
+    public Result getGroupVoteNum(HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization");
+        if(token == null) {
+            return ResultTool.error("请登录");
+        }
+        return groupCandidateService.getAllGroupVoteNum();
+    }
+
+
+
+    @RequestMapping(value = "partyAllvoteNum", method = RequestMethod.GET)
+    public Result getPartyVoteNum(HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization");
+        if(token == null) {
+            return ResultTool.error("请登录");
+        }
+        return partyCandidateService.getAllPartyVoteNum();
+    }
 
 }
