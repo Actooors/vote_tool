@@ -14,6 +14,7 @@ import com.gmr.vote.model.entity.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -84,10 +85,9 @@ public class GroupCandidateService {
         for(GroupCandidate groupCandidate : groupCandidatesList) {
             VoteInformation voteInformation = new VoteInformation();
             voteInformation.setName(groupCandidate.getGroupCandidateName());
-            double percentage = (double)groupCandidate.getVotesNumber()/all;
-            NumberFormat nt = NumberFormat.getPercentInstance();
-            nt.setMinimumFractionDigits(2);
-            voteInformation.setNum(nt.format(percentage));
+            double percentage = (double)groupCandidate.getVotesNumber()/all*100;
+            DecimalFormat df = new DecimalFormat("0.0");
+            voteInformation.setNum(df.format(percentage));
             voteInformationList.add(voteInformation);
         }
         return ResultTool.success(voteInformationList);

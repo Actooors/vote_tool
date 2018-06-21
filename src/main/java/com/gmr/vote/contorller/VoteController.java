@@ -34,7 +34,7 @@ public class VoteController {
     @RequestMapping(value = "groupPullVote", method = RequestMethod.POST)
     public Result groupVote(HttpServletRequest httpServletRequest,
             @RequestBody CandidateVote candidateVote) {
-        String token = httpServletRequest.getHeader("Authorizaiton");
+        String token = httpServletRequest.getHeader("Authorization");
         if(token == null) {
             return ResultTool.error("请登录");
         }
@@ -81,6 +81,15 @@ public class VoteController {
         }
         return groupCandidateService.getName();
     }
+    @RequestMapping(value = "partyName", method = RequestMethod.POST)
+    public Result getPartyName(HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization");
+        if(token == null) {
+            return ResultTool.error("请登录");
+        }
+        return partyCandidateService.getName();
+    }
+
 
     @RequestMapping(value = "partyPercentage", method = RequestMethod.POST)
     public Result getPartyPercentage(HttpServletRequest httpServletRequest,
@@ -102,13 +111,5 @@ public class VoteController {
         return groupCandidateService.getGroupPercent(order);
     }
 
-    @RequestMapping(value = "" +
-            "", method = RequestMethod.POST)
-    public Result getPartyName(HttpServletRequest httpServletRequest) {
-        String token = httpServletRequest.getHeader("Authorization");
-        if(token == null) {
-            return ResultTool.error("请登录");
-        }
-        return partyCandidateService.getName();
-    }
+
 }
