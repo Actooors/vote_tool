@@ -2,6 +2,7 @@ package com.gmr.vote.service;
 
 import com.gmr.vote.dao.PartyCandidateMapper;
 import com.gmr.vote.dao.UserMapper;
+import com.gmr.vote.dao.VoteNumberMapper;
 import com.gmr.vote.model.Jsonrequestbody.CandidateVote;
 import com.gmr.vote.model.Jsonrequestbody.Order;
 import com.gmr.vote.model.Jsonrequestbody.VoteMessage;
@@ -9,12 +10,11 @@ import com.gmr.vote.model.OV.Result;
 import com.gmr.vote.model.OV.VoteInformation;
 import com.gmr.vote.model.OV.Voters;
 import com.gmr.vote.model.ResultTool;
-import com.gmr.vote.model.entity.PartyCandidate;
-import com.gmr.vote.model.entity.PartyCandidateExample;
-import com.gmr.vote.model.entity.User;
+import com.gmr.vote.model.entity.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +34,9 @@ public class PartyCandidateService {
     @Resource
     private UserMapper userMapper;
 
+    @Resource
+    private VoteNumberMapper voteNumberMapper;
+
     /**
      * @Description: 具体实现类
      * @Param: [voteList]
@@ -46,8 +49,10 @@ public class PartyCandidateService {
         if(voteList.isEmpty()) {
             return ResultTool.error("给予的投票内容为空");
         }
+        int count = 0;
         for(VoteMessage voteMessage : voteList) {
             if(voteMessage.getVoted().equals(true)) {
+                count++;
                 PartyCandidate partyCandidate = partyCandidateMapper.selectByPrimaryKey(voteMessage.getName());
                 partyCandidate.setVotesNumber(partyCandidate.getVotesNumber() + 1);
                 partyCandidateMapper.updateByPrimaryKeySelective(partyCandidate);
@@ -56,8 +61,39 @@ public class PartyCandidateService {
         User user = userMapper.selectByPrimaryKey(userId);
         user.setPartyCountNum(user.getPartyCountNum() + 1);
         userMapper.updateByPrimaryKeySelective(user);
+
+        VoteNumber voteNumber = voteNumberMapper.selectByPrimaryKey(-1);
+        voteNumber.setPartyNum(voteNumber.getPartyNum() + count);
+        voteNumberMapper.updateByPrimaryKeySelective(voteNumber);
         return ResultTool.success();
     }
+
+
+    public Result getPartyPercent(Order order) {
+        Integer all = voteNumberMapper.selectByPrimaryKey(-1).getPartyNum();
+        Integer judge = order.getOrder();
+        PartyCandidateExample partyCandidateExample = new PartyCandidateExample();
+        partyCandidateExample.createCriteria()
+                .andPartyCandidateNameIsNotNull();
+        List<PartyCandidate> partyCandidatesList = partyCandidateMapper.selectByExample(partyCandidateExample);
+
+        if(judge.equals(1)) {
+            Collections.sort(partyCandidatesList);
+        }
+
+        List<VoteInformation> voteInformationList = new ArrayList<>();
+        for(PartyCandidate partyCandidate : partyCandidatesList) {
+            VoteInformation voteInformation = new VoteInformation();
+            voteInformation.setName(partyCandidate.getPartyCandidateName());
+            double percentage = (double)partyCandidate.getVotesNumber()/all;
+            NumberFormat nt = NumberFormat.getPercentInstance();
+            nt.setMinimumFractionDigits(2);
+            voteInformation.setNum(nt.format(percentage));
+            voteInformationList.add(voteInformation);
+        }
+        return ResultTool.success(voteInformationList);
+    }
+
 
     /**
      * @Description: 返回候选人得票信息。
@@ -83,7 +119,7 @@ public class PartyCandidateService {
         for(PartyCandidate partyCandidate : partyCandidatesList) {
             VoteInformation voteInformation = new VoteInformation();
             voteInformation.setName(partyCandidate.getPartyCandidateName());
-            voteInformation.setNum(partyCandidate.getVotesNumber());
+            voteInformation.setNum(partyCandidate.getVotesNumber().toString());
             voteInformationList.add(voteInformation);
         }
         return ResultTool.success(voteInformationList);

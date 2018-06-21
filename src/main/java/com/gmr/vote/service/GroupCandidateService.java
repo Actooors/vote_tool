@@ -2,6 +2,7 @@ package com.gmr.vote.service;
 
 import com.gmr.vote.dao.GroupCandidateMapper;
 import com.gmr.vote.dao.UserMapper;
+import com.gmr.vote.dao.VoteNumberMapper;
 import com.gmr.vote.model.Jsonrequestbody.CandidateVote;
 import com.gmr.vote.model.Jsonrequestbody.Order;
 import com.gmr.vote.model.Jsonrequestbody.VoteMessage;
@@ -9,12 +10,11 @@ import com.gmr.vote.model.OV.Result;
 import com.gmr.vote.model.OV.VoteInformation;
 import com.gmr.vote.model.OV.Voters;
 import com.gmr.vote.model.ResultTool;
-import com.gmr.vote.model.entity.GroupCandidate;
-import com.gmr.vote.model.entity.GroupCandidateExample;
-import com.gmr.vote.model.entity.User;
+import com.gmr.vote.model.entity.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +31,9 @@ public class GroupCandidateService {
     private GroupCandidateMapper groupCandidateMapper;
 
     @Resource
+    private VoteNumberMapper voteNumberMapper;
+
+    @Resource
     private UserMapper userMapper;
     /**
      * @Description: 具体实现类
@@ -44,8 +47,10 @@ public class GroupCandidateService {
         if(voteList.isEmpty()) {
             return ResultTool.error("给予的投票内容为空");
         }
+        int count = 0;
         for(VoteMessage voteMessage : voteList) {
             if(voteMessage.getVoted().equals(true)) {
+                count++;
                 GroupCandidate groupCandidate = groupCandidateMapper.selectByPrimaryKey(voteMessage.getName());
                 groupCandidate.setVotesNumber(groupCandidate.getVotesNumber() + 1);
                 groupCandidateMapper.updateByPrimaryKeySelective(groupCandidate);
@@ -54,10 +59,39 @@ public class GroupCandidateService {
         User user = userMapper.selectByPrimaryKey(userId);
         user.setGroupCountNum(user.getGroupCountNum() + 1);
         userMapper.updateByPrimaryKeySelective(user);
+
+        VoteNumber voteNumber = voteNumberMapper.selectByPrimaryKey(-1);
+        voteNumber.setGroupNum(voteNumber.getGroupNum() + count);
+        voteNumberMapper.updateByPrimaryKeySelective(voteNumber);
+
         return ResultTool.success();
     }
 
+    public Result getGroupPercent(Order order) {
 
+        Integer all = voteNumberMapper.selectByPrimaryKey(-1).getGroupNum();
+        Integer judge = order.getOrder();
+        GroupCandidateExample groupCandidateExample = new GroupCandidateExample();
+        groupCandidateExample.createCriteria()
+                .andGroupCandidateNameIsNotNull();
+        List<GroupCandidate> groupCandidatesList = groupCandidateMapper.selectByExample(groupCandidateExample);
+
+        if(judge.equals(1)) {
+            Collections.sort(groupCandidatesList);
+        }
+
+        List<VoteInformation> voteInformationList = new ArrayList<>();
+        for(GroupCandidate groupCandidate : groupCandidatesList) {
+            VoteInformation voteInformation = new VoteInformation();
+            voteInformation.setName(groupCandidate.getGroupCandidateName());
+            double percentage = (double)groupCandidate.getVotesNumber()/all;
+            NumberFormat nt = NumberFormat.getPercentInstance();
+            nt.setMinimumFractionDigits(2);
+            voteInformation.setNum(nt.format(percentage));
+            voteInformationList.add(voteInformation);
+        }
+        return ResultTool.success(voteInformationList);
+    }
 
     /**
      * @Description: 返回候选人得票信息。
@@ -83,7 +117,7 @@ public class GroupCandidateService {
         for(GroupCandidate groupCandidate : groupCandidatesList) {
             VoteInformation voteInformation = new VoteInformation();
             voteInformation.setName(groupCandidate.getGroupCandidateName());
-            voteInformation.setNum(groupCandidate.getVotesNumber());
+            voteInformation.setNum(groupCandidate.getVotesNumber().toString());
             voteInformationList.add(voteInformation);
         }
         return ResultTool.success(voteInformationList);

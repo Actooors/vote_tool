@@ -13,7 +13,7 @@ insert into party_candidate (party_candidate_name, votes_number) VALUES ('5',4);
 insert into party_candidate (party_candidate_name, votes_number) VALUES ('6',1);
 insert into party_candidate (party_candidate_name, votes_number) VALUES ('7',1);
 insert into party_candidate (party_candidate_name, votes_number) VALUES ('8',1);
-insert into canidate (party_candidate_name, votes_number) VALUES ('9',1);
+insert into party_candidate (party_candidate_name, votes_number) VALUES ('9',1);
 insert into party_candidate (party_candidate_name, votes_number) VALUES ('10',1);
 insert into party_candidate (party_candidate_name, votes_number) VALUES ('11',1);
 insert into party_candidate (party_candidate_name, votes_number) VALUES ('12',1);

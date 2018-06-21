@@ -22,3 +22,13 @@ create table group_candidate(
   group_candidate_name varchar(16) not null primary key ,
   votes_number int default 0
 ) charset = utf8;
+
+-- auto-generated definition
+create table vote_number
+(
+  id int default -1 primary key ,
+  party_num   int default 0 not null,
+  group_num int default 0 null
+) charset = utf8;
+
+

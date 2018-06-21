@@ -11,5 +11,5 @@ import lombok.Data;
 @Data
 public class VoteInformation {
     private String name;
-    private Integer num;
+    private String num;
 }
