@@ -6,15 +6,19 @@ import com.gmr.vote.model.OV.CountNum;
 import com.gmr.vote.model.OV.Result;
 import com.gmr.vote.model.OV.TokenResponse;
 import com.gmr.vote.model.ResultTool;
+import com.gmr.vote.model.entity.PartyCandidate;
 import com.gmr.vote.model.entity.User;
+import com.gmr.vote.model.entity.UserExample;
 import com.gmr.vote.tools.AuthTool;
 import com.gmr.vote.tools.JwtUtil;
 import com.gmr.vote.tools.SecurityTool;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 /**
  * @program: vote
@@ -28,6 +32,12 @@ public class UserService {
     @Resource
     private UserMapper userMapper;
 
+    @Resource
+    private PartyCandidateService partyCandidateService;
+
+    @Resource
+    private GroupCandidateService groupCandidateService;
+
     /**
      * @Description: 返回计票人投票次数信息
      * @Param: [userId]
@@ -36,20 +46,37 @@ public class UserService {
      * @Date: 18-6-20
      */
     public Result getPartyVoteNum(String userId) {
-        User user = userMapper.selectByPrimaryKey(userId);
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andUserIdIsNotNull();
+        List<User> userList = userMapper.selectByExample(userExample);
         CountNum countNum = new CountNum();
-        countNum.setCountNum(user.getPartyCountNum());
+        int count = 0;
+        for(User user : userList) {
+            count += user.getPartyCountNum();
+        }
+        countNum.setCountNum(count);
         return ResultTool.success(countNum);
     }
 
     public Result getGroupVoteNum(String userId) {
-        User user = userMapper.selectByPrimaryKey(userId);
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andUserIdIsNotNull();
+        List<User> userList = userMapper.selectByExample(userExample);
         CountNum countNum = new CountNum();
-        countNum.setCountNum(user.getGroupCountNum());
+        int count = 0;
+        for(User user : userList) {
+            count += user.getGroupCountNum();
+        }
+        countNum.setCountNum(count);
         return ResultTool.success(countNum);
     }
 
-
+//    public Result getGroupVoteNum(String userId) {
+//        User user = userMapper.selectByPrimaryKey(userId);
+//        CountNum countNum = new CountNum();
+//        countNum.setCountNum(user.getGroupCountNum());
+//        return ResultTool.success(countNum);
+//    }
 
     public Result login(LoginUser user) {
         if (user == null || user.getUid() == null || "".equals(user.getUid()) || user.getPassword() == null || "".equals(user.getPassword())) {
