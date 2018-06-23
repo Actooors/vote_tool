@@ -81,13 +81,11 @@ public class PartyCandidateService {
         UserExample userExample = new UserExample();
         userExample.createCriteria().andUserIdIsNotNull();
         List<User> userList = userMapper.selectByExample(userExample);
-        CountNum countNum = new CountNum();
         int count = 0;
         for(User user : userList) {
             count += user.getPartyCountNum();
         }
-        countNum.setCountNum(count);
-        return ResultTool.success(countNum);
+        return ResultTool.success(count);
     }
 
 
