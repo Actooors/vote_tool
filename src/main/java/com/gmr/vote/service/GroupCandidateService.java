@@ -6,6 +6,7 @@ import com.gmr.vote.dao.VoteNumberMapper;
 import com.gmr.vote.model.Jsonrequestbody.CandidateVote;
 import com.gmr.vote.model.Jsonrequestbody.Order;
 import com.gmr.vote.model.Jsonrequestbody.VoteMessage;
+import com.gmr.vote.model.OV.CountNum;
 import com.gmr.vote.model.OV.Result;
 import com.gmr.vote.model.OV.VoteInformation;
 import com.gmr.vote.model.OV.Voters;
@@ -76,7 +77,16 @@ public class GroupCandidateService {
      * @Date: 18-6-21
      */
     public Result getAllGroupVoteNum() {
-        return ResultTool.success(voteNumberMapper.selectByPrimaryKey(-1).getGroupNum());
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andUserIdIsNotNull();
+        List<User> userList = userMapper.selectByExample(userExample);
+        CountNum countNum = new CountNum();
+        int count = 0;
+        for(User user : userList) {
+            count += user.getGroupCountNum();
+        }
+        countNum.setCountNum(count);
+        return ResultTool.success(countNum);
     }
 
 
