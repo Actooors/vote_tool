@@ -97,9 +97,15 @@ public class GroupCandidateService {
         for(GroupCandidate groupCandidate : groupCandidatesList) {
             VoteInformation voteInformation = new VoteInformation();
             voteInformation.setName(groupCandidate.getGroupCandidateName());
-            double percentage = (double)groupCandidate.getVotesNumber()/all*100;
-            DecimalFormat df = new DecimalFormat("0.0");
-            voteInformation.setNum(df.format(percentage));
+            double percentage;
+            if(all != 0) {
+                percentage = (double)groupCandidate.getVotesNumber()/all*100;
+                DecimalFormat df = new DecimalFormat("0.0");
+                voteInformation.setNum(df.format(percentage));
+            } else {
+                voteInformation.setNum("0");
+            }
+
             voteInformationList.add(voteInformation);
         }
         return ResultTool.success(voteInformationList);

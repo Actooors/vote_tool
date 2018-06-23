@@ -97,9 +97,14 @@ public class PartyCandidateService {
         for(PartyCandidate partyCandidate : partyCandidatesList) {
             VoteInformation voteInformation = new VoteInformation();
             voteInformation.setName(partyCandidate.getPartyCandidateName());
-            double percentage = (double)partyCandidate.getVotesNumber()/all*100;
-            DecimalFormat df = new DecimalFormat("0.0");
-            voteInformation.setNum(df.format(percentage));
+            double percentage;
+            if(all != 0) {
+                percentage = (double)partyCandidate.getVotesNumber()/all*100;
+                DecimalFormat df = new DecimalFormat("0.0");
+                voteInformation.setNum(df.format(percentage));
+            } else {
+                voteInformation.setNum("0");
+            }
             voteInformationList.add(voteInformation);
         }
         return ResultTool.success(voteInformationList);
