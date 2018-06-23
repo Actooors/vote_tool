@@ -6,7 +6,6 @@ import com.gmr.vote.dao.VoteNumberMapper;
 import com.gmr.vote.model.Jsonrequestbody.CandidateVote;
 import com.gmr.vote.model.Jsonrequestbody.Order;
 import com.gmr.vote.model.Jsonrequestbody.VoteMessage;
-import com.gmr.vote.model.OV.CountNum;
 import com.gmr.vote.model.OV.Result;
 import com.gmr.vote.model.OV.VoteInformation;
 import com.gmr.vote.model.OV.Voters;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -55,7 +53,10 @@ public class PartyCandidateService {
         for(VoteMessage voteMessage : voteList) {
             if(voteMessage.getVoted().equals(true)) {
                 count++;
-                PartyCandidate partyCandidate = partyCandidateMapper.selectByPrimaryKey(voteMessage.getName());
+                PartyCandidateExample partyCandidateExample = new PartyCandidateExample();
+                partyCandidateExample.createCriteria()
+                        .andPartyCandidateNameEqualTo(voteMessage.getName());
+                PartyCandidate partyCandidate = partyCandidateMapper.selectByExample(partyCandidateExample).get(0);
                 partyCandidate.setVotesNumber(partyCandidate.getVotesNumber() + 1);
                 partyCandidateMapper.updateByPrimaryKeySelective(partyCandidate);
             }

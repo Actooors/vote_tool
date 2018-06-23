@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.gmr.vote.dao.PartyCandidateMapper" >
   <resultMap id="BaseResultMap" type="com.gmr.vote.model.entity.PartyCandidate" >
-    <id column="party_candidate_name" property="partyCandidateName" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="party_candidate_name" property="partyCandidateName" jdbcType="VARCHAR" />
     <result column="votes_number" property="votesNumber" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -64,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    party_candidate_name, votes_number
+    id, party_candidate_name, votes_number
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gmr.vote.model.entity.PartyCandidateExample" >
     select
@@ -81,15 +82,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from party_candidate
-    where party_candidate_name = #{partyCandidateName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from party_candidate
-    where party_candidate_name = #{partyCandidateName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.gmr.vote.model.entity.PartyCandidateExample" >
     delete from party_candidate
@@ -98,12 +99,17 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gmr.vote.model.entity.PartyCandidate" >
-    insert into party_candidate (party_candidate_name, votes_number)
-    values (#{partyCandidateName,jdbcType=VARCHAR}, #{votesNumber,jdbcType=INTEGER})
+    insert into party_candidate (id, party_candidate_name, votes_number
+      )
+    values (#{id,jdbcType=INTEGER}, #{partyCandidateName,jdbcType=VARCHAR}, #{votesNumber,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.gmr.vote.model.entity.PartyCandidate" >
     insert into party_candidate
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
       <if test="partyCandidateName != null" >
         party_candidate_name,
       </if>
@@ -112,6 +118,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
       <if test="partyCandidateName != null" >
         #{partyCandidateName,jdbcType=VARCHAR},
       </if>
@@ -129,6 +138,9 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update party_candidate
     <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
       <if test="record.partyCandidateName != null" >
         party_candidate_name = #{record.partyCandidateName,jdbcType=VARCHAR},
       </if>
@@ -142,7 +154,8 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update party_candidate
-    set party_candidate_name = #{record.partyCandidateName,jdbcType=VARCHAR},
+    set id = #{record.id,jdbcType=INTEGER},
+      party_candidate_name = #{record.partyCandidateName,jdbcType=VARCHAR},
       votes_number = #{record.votesNumber,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -151,15 +164,19 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.gmr.vote.model.entity.PartyCandidate" >
     update party_candidate
     <set >
+      <if test="partyCandidateName != null" >
+        party_candidate_name = #{partyCandidateName,jdbcType=VARCHAR},
+      </if>
       <if test="votesNumber != null" >
         votes_number = #{votesNumber,jdbcType=INTEGER},
       </if>
     </set>
-    where party_candidate_name = #{partyCandidateName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gmr.vote.model.entity.PartyCandidate" >
     update party_candidate
-    set votes_number = #{votesNumber,jdbcType=INTEGER}
-    where party_candidate_name = #{partyCandidateName,jdbcType=VARCHAR}
+    set party_candidate_name = #{partyCandidateName,jdbcType=VARCHAR},
+      votes_number = #{votesNumber,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

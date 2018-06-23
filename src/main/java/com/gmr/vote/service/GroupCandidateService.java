@@ -6,7 +6,6 @@ import com.gmr.vote.dao.VoteNumberMapper;
 import com.gmr.vote.model.Jsonrequestbody.CandidateVote;
 import com.gmr.vote.model.Jsonrequestbody.Order;
 import com.gmr.vote.model.Jsonrequestbody.VoteMessage;
-import com.gmr.vote.model.OV.CountNum;
 import com.gmr.vote.model.OV.Result;
 import com.gmr.vote.model.OV.VoteInformation;
 import com.gmr.vote.model.OV.Voters;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -53,7 +51,10 @@ public class GroupCandidateService {
         for(VoteMessage voteMessage : voteList) {
             if(voteMessage.getVoted().equals(true)) {
                 count++;
-                GroupCandidate groupCandidate = groupCandidateMapper.selectByPrimaryKey(voteMessage.getName());
+                GroupCandidateExample groupCandidateExample = new GroupCandidateExample();
+                groupCandidateExample.createCriteria()
+                        .andGroupCandidateNameEqualTo(voteMessage.getName());
+                GroupCandidate groupCandidate = groupCandidateMapper.selectByExample(groupCandidateExample).get(0);
                 groupCandidate.setVotesNumber(groupCandidate.getVotesNumber() + 1);
                 groupCandidateMapper.updateByPrimaryKeySelective(groupCandidate);
             }

@@ -10,7 +10,7 @@ public interface PartyCandidateMapper {
 
     int deleteByExample(PartyCandidateExample example);
 
-    int deleteByPrimaryKey(String partyCandidateName);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(PartyCandidate record);
 
@@ -18,7 +18,7 @@ public interface PartyCandidateMapper {
 
     List<PartyCandidate> selectByExample(PartyCandidateExample example);
 
-    PartyCandidate selectByPrimaryKey(String partyCandidateName);
+    PartyCandidate selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") PartyCandidate record, @Param("example") PartyCandidateExample example);
 
