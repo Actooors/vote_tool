@@ -3,8 +3,6 @@ package com.gmr.vote.model.entity;
 public class User {
     private String userId;
 
-    private String password;
-
     private Integer type;
 
     private Integer partyCountNum;
@@ -17,14 +15,6 @@ public class User {
 
     public void setUserId(String userId) {
         this.userId = userId == null ? null : userId.trim();
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
     }
 
     public Integer getType() {

@@ -61,41 +61,19 @@ public class UserService {
         // 首先验证数据库中有没有该用户
         User existedUser = userMapper.selectByPrimaryKey(user.getUid());
         if (existedUser != null) {
-            try {
-                if (existedUser.getPassword().equals(SecurityTool.encodeByMd5(user.getPassword()))) {
-                    //密码正确
-                    TokenResponse response = new TokenResponse();
-                    response.setToken(JwtUtil.createJwt(user.getUid()));
-                    response.setIdentity(existedUser.getType());
-                    VoteMaxNum voteMaxNum = new VoteMaxNum();
-                    voteMaxNum.setGroupMaxVoteNum(6);
-                    voteMaxNum.setPartMaxVoteNum(27);
-                    response.setVoteMaxNum(voteMaxNum);
-                    return ResultTool.success(response);
-                } else if (!existedUser.getPassword().equals(SecurityTool.encodeByMd5(user.getPassword()))) {
-                    // 如果用户在上海大学端更改了密码，我们访问接口进行验证，通过则更新数据库中用户的密码
-                    if (AuthTool.getAuth(user.getUid(), user.getPassword())) {
-                        User record = new User();
-                        record.setUserId(user.getUid());
-                        record.setPassword(SecurityTool.encodeByMd5(user.getPassword()));
-                        userMapper.updateByPrimaryKeySelective(record);
-                        TokenResponse response = new TokenResponse();
-                        response.setToken(JwtUtil.createJwt(user.getUid()));
-                        response.setIdentity(existedUser.getType());
-                        VoteMaxNum voteMaxNum = new VoteMaxNum();
-                        voteMaxNum.setGroupMaxVoteNum(6);
-                        voteMaxNum.setPartMaxVoteNum(27);
-                        response.setVoteMaxNum(voteMaxNum);
-                        return ResultTool.success(response);
-
-                    } else {
-                        return ResultTool.error("账号密码错误");
-                    }
-                } else {
-                    return ResultTool.error("您没有权限登录该系统");
-                }
-            } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-                return ResultTool.error(e.getMessage());
+            if (AuthTool.getAuth(user.getUid(), user.getPassword())) {
+                User record = new User();
+                record.setUserId(user.getUid());
+                TokenResponse response = new TokenResponse();
+                response.setToken(JwtUtil.createJwt(user.getUid()));
+                response.setIdentity(existedUser.getType());
+                VoteMaxNum voteMaxNum = new VoteMaxNum();
+                voteMaxNum.setGroupMaxVoteNum(6);
+                voteMaxNum.setPartMaxVoteNum(27);
+                response.setVoteMaxNum(voteMaxNum);
+                return ResultTool.success(response);
+            } else {
+                return ResultTool.error("账号密码错误");
             }
         } else {
             // 请求上海大学登陆接口查看有没有该用户，有的话该用户进入我们的数据库，没有的话返回登陆失败的信息
