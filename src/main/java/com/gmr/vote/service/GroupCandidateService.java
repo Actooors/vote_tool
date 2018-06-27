@@ -14,6 +14,7 @@ import com.gmr.vote.model.entity.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,7 +43,7 @@ public class GroupCandidateService {
      * @Author: ggmr
      * @Date: 18-6-16
      */
-    public Result groupVote(String userId, CandidateVote vote) {
+    public Result groupVote(String userId, CandidateVote vote) throws UnsupportedEncodingException {
         List<VoteMessage> voteList = vote.getData();
         if(voteList.isEmpty()) {
             return ResultTool.error("给予的投票内容为空");
@@ -62,7 +63,7 @@ public class GroupCandidateService {
                 count++;
                 GroupCandidateExample groupCandidateExample = new GroupCandidateExample();
                 groupCandidateExample.createCriteria()
-                        .andGroupCandidateNameEqualTo(voteMessage.getName());
+                        .andGroupCandidateNameEqualTo(java.net.URLDecoder.decode(voteMessage.getName(), "utf-8"));
                 GroupCandidate groupCandidate = groupCandidateMapper.selectByExample(groupCandidateExample).get(0);
                 groupCandidate.setVotesNumber(groupCandidate.getVotesNumber() + 1);
                 groupCandidateMapper.updateByPrimaryKeySelective(groupCandidate);
