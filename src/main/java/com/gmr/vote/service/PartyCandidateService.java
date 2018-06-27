@@ -55,8 +55,8 @@ public class PartyCandidateService {
                 cou++;
             }
         }
-        if(cou < 27) {
-            return ResultTool.error("投票人数不能少于27");
+        if(cou >= 27) {
+            return ResultTool.error("投票人数不能多于27");
         }
 
         int count = 0;
