@@ -53,7 +53,7 @@ public class GroupCandidateService {
                 cou++;
             }
         }
-        if(cou >= 6) {
+        if(cou > 6) {
             return ResultTool.error("投票人数不能多于6");
         }
         int count = 0;
