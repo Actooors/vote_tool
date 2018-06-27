@@ -91,7 +91,7 @@ public class VoteController {
     }
 
 
-    @RequestMapping(value = "@", method = RequestMethod.POST)
+    @RequestMapping(value = "partyPercentage", method = RequestMethod.POST)
     public Result getPartyPercentage(HttpServletRequest httpServletRequest,
                                      @RequestBody Order order) {
         String token = httpServletRequest.getHeader("Authorization");
