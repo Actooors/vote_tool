@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import com.gmr.vote.service.PartyCandidateService;
 
 import javax.annotation.Resource;
+import java.io.UnsupportedEncodingException;
 
 /**
  * @program: vote
@@ -33,7 +34,7 @@ public class VoteController {
 
     @RequestMapping(value = "groupPullVote", method = RequestMethod.POST)
     public Result groupVote(HttpServletRequest httpServletRequest,
-            @RequestBody CandidateVote candidateVote) {
+            @RequestBody CandidateVote candidateVote) throws UnsupportedEncodingException {
         String token = httpServletRequest.getHeader("Authorization");
         if(token == null) {
             return ResultTool.error("请登录");
@@ -44,7 +45,7 @@ public class VoteController {
 
     @RequestMapping(value = "partyPullVote", method = RequestMethod.POST)
     public Result partyVote(HttpServletRequest httpServletRequest,
-                            @RequestBody CandidateVote candidateVote) {
+                            @RequestBody CandidateVote candidateVote) throws UnsupportedEncodingException {
         String token = httpServletRequest.getHeader("Authorization");
         if(token == null) {
             return ResultTool.error("请登录");
