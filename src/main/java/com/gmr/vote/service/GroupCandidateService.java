@@ -47,8 +47,14 @@ public class GroupCandidateService {
         if(voteList.isEmpty()) {
             return ResultTool.error("给予的投票内容为空");
         }
-        if(voteList.size() < 27) {
-            return ResultTool.error("您投票人数不得少于27");
+        int cou = 0;
+        for(VoteMessage voteMessage : voteList) {
+            if(voteMessage.getVoted()) {
+                cou++;
+            }
+        }
+        if(cou < 6) {
+            return ResultTool.error("投票人数不能少于6");
         }
         int count = 0;
         for(VoteMessage voteMessage : voteList) {

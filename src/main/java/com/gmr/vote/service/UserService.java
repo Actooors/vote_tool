@@ -5,6 +5,7 @@ import com.gmr.vote.model.Jsonrequestbody.LoginUser;
 import com.gmr.vote.model.OV.CountNum;
 import com.gmr.vote.model.OV.Result;
 import com.gmr.vote.model.OV.TokenResponse;
+import com.gmr.vote.model.OV.VoteMaxNum;
 import com.gmr.vote.model.ResultTool;
 import com.gmr.vote.model.entity.User;
 import com.gmr.vote.tools.AuthTool;
@@ -77,6 +78,10 @@ public class UserService {
                         TokenResponse response = new TokenResponse();
                         response.setToken(JwtUtil.createJwt(user.getUid()));
                         response.setIdentity(existedUser.getType());
+                        VoteMaxNum voteMaxNum = new VoteMaxNum();
+                        voteMaxNum.setGroupMaxVoteNum(6);
+                        voteMaxNum.setPartMaxVoteNum(27);
+                        response.setVoteMaxNum(voteMaxNum);
                         return ResultTool.success(response);
 
                     } else {

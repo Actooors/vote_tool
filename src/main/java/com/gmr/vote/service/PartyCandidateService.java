@@ -49,8 +49,14 @@ public class PartyCandidateService {
         if(voteList.isEmpty()) {
             return ResultTool.error("给予的投票内容为空");
         }
-        if(voteList.size() < 27) {
-            return ResultTool.error("您投票人数不得少于27");
+        int cou = 0;
+        for(VoteMessage voteMessage : voteList) {
+            if(voteMessage.getVoted()) {
+                cou++;
+            }
+        }
+        if(cou < 27) {
+            return ResultTool.error("投票人数不能少于27");
         }
 
         int count = 0;
@@ -74,6 +80,7 @@ public class PartyCandidateService {
         voteNumberMapper.updateByPrimaryKeySelective(voteNumber);
         return ResultTool.success();
     }
+
 
     /**
      * @Description: 获得所有的投票数
