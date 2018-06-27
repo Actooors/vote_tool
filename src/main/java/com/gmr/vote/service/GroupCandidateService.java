@@ -47,6 +47,9 @@ public class GroupCandidateService {
         if(voteList.isEmpty()) {
             return ResultTool.error("给予的投票内容为空");
         }
+        if(voteList.size() < 27) {
+            return ResultTool.error("您投票人数不得少于27");
+        }
         int count = 0;
         for(VoteMessage voteMessage : voteList) {
             if(voteMessage.getVoted().equals(true)) {
@@ -108,11 +111,17 @@ public class GroupCandidateService {
             voteInformation.setName(groupCandidate.getGroupCandidateName());
             double percentage;
             if(all != 0) {
-                percentage = (double)groupCandidate.getVotesNumber()/all*100;
-                DecimalFormat df = new DecimalFormat("0.0");
-                voteInformation.setNum(df.format(percentage));
+                percentage = (double)groupCandidate.getVotesNumber()/all;
+                if(percentage == 0) {
+                    voteInformation.setNum("0%");
+                } else {
+                    DecimalFormat df = new DecimalFormat("0.00%");
+                    voteInformation.setNum(df.format(percentage));
+                }
+//                System.out.println(df.format(0.1234));
+//                DecimalFormat df = new DecimalFormat("0.0");
             } else {
-                voteInformation.setNum("0");
+                voteInformation.setNum("0%");
             }
 
             voteInformationList.add(voteInformation);

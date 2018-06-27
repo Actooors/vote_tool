@@ -90,24 +90,25 @@ public class UserService {
             }
         } else {
             // 请求上海大学登陆接口查看有没有该用户，有的话该用户进入我们的数据库，没有的话返回登陆失败的信息
-            if (AuthTool.getAuth(user.getUid(), user.getPassword())) {
-                User systemUser = AuthTool.getInfo(user.getUid());
-                assert systemUser != null;
-                systemUser.setUserId(user.getUid());
-                try {
-                    systemUser.setPassword(SecurityTool.encodeByMd5(user.getPassword()));
-                } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-                    return ResultTool.error(e.getMessage());
-                }
-                systemUser.setType(1);
-                userMapper.insertSelective(systemUser);
-                TokenResponse response = new TokenResponse();
-                response.setToken(JwtUtil.createJwt(user.getUid()));
-                response.setIdentity(1);
-                return ResultTool.success(response);
-            } else {
-                return ResultTool.error("您不是上海大学的用户");
-            }
+//            if (AuthTool.getAuth(user.getUid(), user.getPassword())) {
+//                User systemUser = AuthTool.getInfo(user.getUid());
+//                assert systemUser != null;
+//                systemUser.setUserId(user.getUid());
+//                try {
+//                    systemUser.setPassword(SecurityTool.encodeByMd5(user.getPassword()));
+//                } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+//                    return ResultTool.error(e.getMessage());
+//                }
+//                systemUser.setType(1);
+//                userMapper.insertSelective(systemUser);
+//                TokenResponse response = new TokenResponse();
+//                response.setToken(JwtUtil.createJwt(user.getUid()));
+//                response.setIdentity(1);
+//                return ResultTool.success(response);
+//            } else {
+//                return ResultTool.error("您不是上海大学的用户");
+//            }
+            return ResultTool.error("您没有权限登录");
         }
     }
 }
