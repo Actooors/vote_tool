@@ -67,6 +67,10 @@ public class UserService {
                     TokenResponse response = new TokenResponse();
                     response.setToken(JwtUtil.createJwt(user.getUid()));
                     response.setIdentity(existedUser.getType());
+                    VoteMaxNum voteMaxNum = new VoteMaxNum();
+                    voteMaxNum.setGroupMaxVoteNum(6);
+                    voteMaxNum.setPartMaxVoteNum(27);
+                    response.setVoteMaxNum(voteMaxNum);
                     return ResultTool.success(response);
                 } else if (!existedUser.getPassword().equals(SecurityTool.encodeByMd5(user.getPassword()))) {
                     // 如果用户在上海大学端更改了密码，我们访问接口进行验证，通过则更新数据库中用户的密码
