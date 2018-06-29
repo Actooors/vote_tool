@@ -293,6 +293,126 @@ public class PartyCandidateExample {
             addCriterion("votes_number not between", value1, value2, "votesNumber");
             return (Criteria) this;
         }
+
+        public Criteria andVotesAgainstNumberIsNull() {
+            addCriterion("votes_against_number is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVotesAgainstNumberIsNotNull() {
+            addCriterion("votes_against_number is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVotesAgainstNumberEqualTo(Integer value) {
+            addCriterion("votes_against_number =", value, "votesAgainstNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andVotesAgainstNumberNotEqualTo(Integer value) {
+            addCriterion("votes_against_number <>", value, "votesAgainstNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andVotesAgainstNumberGreaterThan(Integer value) {
+            addCriterion("votes_against_number >", value, "votesAgainstNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andVotesAgainstNumberGreaterThanOrEqualTo(Integer value) {
+            addCriterion("votes_against_number >=", value, "votesAgainstNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andVotesAgainstNumberLessThan(Integer value) {
+            addCriterion("votes_against_number <", value, "votesAgainstNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andVotesAgainstNumberLessThanOrEqualTo(Integer value) {
+            addCriterion("votes_against_number <=", value, "votesAgainstNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andVotesAgainstNumberIn(List<Integer> values) {
+            addCriterion("votes_against_number in", values, "votesAgainstNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andVotesAgainstNumberNotIn(List<Integer> values) {
+            addCriterion("votes_against_number not in", values, "votesAgainstNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andVotesAgainstNumberBetween(Integer value1, Integer value2) {
+            addCriterion("votes_against_number between", value1, value2, "votesAgainstNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andVotesAgainstNumberNotBetween(Integer value1, Integer value2) {
+            addCriterion("votes_against_number not between", value1, value2, "votesAgainstNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andVotesAbandonNumberIsNull() {
+            addCriterion("votes_abandon_number is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVotesAbandonNumberIsNotNull() {
+            addCriterion("votes_abandon_number is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVotesAbandonNumberEqualTo(Integer value) {
+            addCriterion("votes_abandon_number =", value, "votesAbandonNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andVotesAbandonNumberNotEqualTo(Integer value) {
+            addCriterion("votes_abandon_number <>", value, "votesAbandonNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andVotesAbandonNumberGreaterThan(Integer value) {
+            addCriterion("votes_abandon_number >", value, "votesAbandonNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andVotesAbandonNumberGreaterThanOrEqualTo(Integer value) {
+            addCriterion("votes_abandon_number >=", value, "votesAbandonNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andVotesAbandonNumberLessThan(Integer value) {
+            addCriterion("votes_abandon_number <", value, "votesAbandonNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andVotesAbandonNumberLessThanOrEqualTo(Integer value) {
+            addCriterion("votes_abandon_number <=", value, "votesAbandonNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andVotesAbandonNumberIn(List<Integer> values) {
+            addCriterion("votes_abandon_number in", values, "votesAbandonNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andVotesAbandonNumberNotIn(List<Integer> values) {
+            addCriterion("votes_abandon_number not in", values, "votesAbandonNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andVotesAbandonNumberBetween(Integer value1, Integer value2) {
+            addCriterion("votes_abandon_number between", value1, value2, "votesAbandonNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andVotesAbandonNumberNotBetween(Integer value1, Integer value2) {
+            addCriterion("votes_abandon_number not between", value1, value2, "votesAbandonNumber");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

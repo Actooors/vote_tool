@@ -50,7 +50,7 @@ public class GroupCandidateService {
         }
         int cou = 0;
         for(VoteMessage voteMessage : voteList) {
-            if(voteMessage.getVoted()) {
+            if(voteMessage.getVoted() == 1) {
                 cou++;
             }
         }
@@ -59,15 +59,27 @@ public class GroupCandidateService {
         }
         int count = 0;
         for(VoteMessage voteMessage : voteList) {
-            if(voteMessage.getVoted().equals(true)) {
-                count++;
-                GroupCandidateExample groupCandidateExample = new GroupCandidateExample();
-                groupCandidateExample.createCriteria()
-                        .andGroupCandidateNameEqualTo(java.net.URLDecoder.decode(voteMessage.getName(), "utf-8"));
-                GroupCandidate groupCandidate = groupCandidateMapper.selectByExample(groupCandidateExample).get(0);
-                groupCandidate.setVotesNumber(groupCandidate.getVotesNumber() + 1);
-                groupCandidateMapper.updateByPrimaryKeySelective(groupCandidate);
+            GroupCandidateExample groupCandidateExample = new GroupCandidateExample();
+            groupCandidateExample.createCriteria()
+                    .andGroupCandidateNameEqualTo(java.net.URLDecoder.decode(voteMessage.getName(), "utf-8"));
+            GroupCandidate groupCandidate = groupCandidateMapper.selectByExample(groupCandidateExample).get(0);
+            switch (voteMessage.getVoted()) {
+                case 1 : {
+                    count++;
+                    groupCandidate.setVotesNumber(groupCandidate.getVotesNumber() + 1);
+                    break;
+                }
+                case 2 : {
+                    groupCandidate.setVotesAgainstNumber(groupCandidate.getVotesAgainstNumber() + 1);
+                    break;
+                }
+                case 3: {
+                    groupCandidate.setVotesAbandonNumber(groupCandidate.getVotesAbandonNumber() + 1);
+                    break;
+                }
+                default:
             }
+            groupCandidateMapper.updateByPrimaryKeySelective(groupCandidate);
         }
         User user = userMapper.selectByPrimaryKey(userId);
         user.setGroupCountNum(user.getGroupCountNum() + 1);
@@ -161,6 +173,8 @@ public class GroupCandidateService {
             VoteInformation voteInformation = new VoteInformation();
             voteInformation.setName(groupCandidate.getGroupCandidateName());
             voteInformation.setNum(groupCandidate.getVotesNumber().toString());
+            voteInformation.setNum1(groupCandidate.getVotesAgainstNumber().toString());
+            voteInformation.setNum2(groupCandidate.getVotesAbandonNumber().toString());
             voteInformationList.add(voteInformation);
         }
         return ResultTool.success(voteInformationList);

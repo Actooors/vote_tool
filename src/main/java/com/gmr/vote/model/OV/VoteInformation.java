@@ -12,4 +12,6 @@ import lombok.Data;
 public class VoteInformation {
     private String name;
     private String num;
+    private String num1;
+    private String num2;
 }

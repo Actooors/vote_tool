@@ -1,11 +1,15 @@
 package com.gmr.vote.model.entity;
 
-public class PartyCandidate implements Comparable<PartyCandidate>{
+public class PartyCandidate  implements Comparable<PartyCandidate> {
     private Integer id;
 
     private String partyCandidateName;
 
     private Integer votesNumber;
+
+    private Integer votesAgainstNumber;
+
+    private Integer votesAbandonNumber;
 
     public Integer getId() {
         return id;
@@ -29,6 +33,22 @@ public class PartyCandidate implements Comparable<PartyCandidate>{
 
     public void setVotesNumber(Integer votesNumber) {
         this.votesNumber = votesNumber;
+    }
+
+    public Integer getVotesAgainstNumber() {
+        return votesAgainstNumber;
+    }
+
+    public void setVotesAgainstNumber(Integer votesAgainstNumber) {
+        this.votesAgainstNumber = votesAgainstNumber;
+    }
+
+    public Integer getVotesAbandonNumber() {
+        return votesAbandonNumber;
+    }
+
+    public void setVotesAbandonNumber(Integer votesAbandonNumber) {
+        this.votesAbandonNumber = votesAbandonNumber;
     }
 
     @Override

@@ -52,25 +52,38 @@ public class PartyCandidateService {
         }
         int cou = 0;
         for(VoteMessage voteMessage : voteList) {
-            if(voteMessage.getVoted()) {
+            if(voteMessage.getVoted() == 1) {
                 cou++;
             }
         }
         if(cou > 27) {
-            return ResultTool.error("投票人数不能多于27");
+            return ResultTool.error("投赞成人数不能多于27");
         }
 
         int count = 0;
+
         for(VoteMessage voteMessage : voteList) {
-            if(voteMessage.getVoted().equals(true)) {
-                count++;
-                PartyCandidateExample partyCandidateExample = new PartyCandidateExample();
-                partyCandidateExample.createCriteria()
-                        .andPartyCandidateNameEqualTo(java.net.URLDecoder.decode(voteMessage.getName(), "utf-8"));
-                PartyCandidate partyCandidate = partyCandidateMapper.selectByExample(partyCandidateExample).get(0);
-                partyCandidate.setVotesNumber(partyCandidate.getVotesNumber() + 1);
-                partyCandidateMapper.updateByPrimaryKeySelective(partyCandidate);
+            PartyCandidateExample partyCandidateExample = new PartyCandidateExample();
+            partyCandidateExample.createCriteria()
+                    .andPartyCandidateNameEqualTo(java.net.URLDecoder.decode(voteMessage.getName(), "utf-8"));
+            PartyCandidate partyCandidate = partyCandidateMapper.selectByExample(partyCandidateExample).get(0);
+            switch (voteMessage.getVoted()) {
+                case 1 : {
+                    count++;
+                    partyCandidate.setVotesNumber(partyCandidate.getVotesNumber() + 1);
+                    break;
+                }
+                case 2 : {
+                    partyCandidate.setVotesAgainstNumber(partyCandidate.getVotesAgainstNumber() + 1);
+                    break;
+                }
+                case 3: {
+                    partyCandidate.setVotesAbandonNumber(partyCandidate.getVotesAbandonNumber() + 1);
+                    break;
+                }
+                default:
             }
+            partyCandidateMapper.updateByPrimaryKeySelective(partyCandidate);
         }
         User user = userMapper.selectByPrimaryKey(userId);
         user.setPartyCountNum(user.getPartyCountNum() + 1);
@@ -163,6 +176,8 @@ public class PartyCandidateService {
             VoteInformation voteInformation = new VoteInformation();
             voteInformation.setName(partyCandidate.getPartyCandidateName());
             voteInformation.setNum(partyCandidate.getVotesNumber().toString());
+            voteInformation.setNum1(partyCandidate.getVotesAgainstNumber().toString());
+            voteInformation.setNum2(partyCandidate.getVotesAbandonNumber().toString());
             voteInformationList.add(voteInformation);
         }
         return ResultTool.success(voteInformationList);
