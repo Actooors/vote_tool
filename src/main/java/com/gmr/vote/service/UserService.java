@@ -10,12 +10,9 @@ import com.gmr.vote.model.ResultTool;
 import com.gmr.vote.model.entity.User;
 import com.gmr.vote.tools.AuthTool;
 import com.gmr.vote.tools.JwtUtil;
-import com.gmr.vote.tools.SecurityTool;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * @program: vote
@@ -68,7 +65,7 @@ public class UserService {
                 response.setToken(JwtUtil.createJwt(user.getUid()));
                 response.setIdentity(existedUser.getType());
                 VoteMaxNum voteMaxNum = new VoteMaxNum();
-                voteMaxNum.setGroupMaxVoteNum(6);
+                voteMaxNum.setGroupMaxVoteNum(9);
                 voteMaxNum.setPartMaxVoteNum(27);
                 response.setVoteMaxNum(voteMaxNum);
                 return ResultTool.success(response);

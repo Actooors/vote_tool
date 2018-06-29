@@ -54,8 +54,8 @@ public class GroupCandidateService {
                 cou++;
             }
         }
-        if(cou > 6) {
-            return ResultTool.error("投票人数不能多于6");
+        if(cou > 9) {
+            return ResultTool.error("投票人数不能多于9");
         }
         int count = 0;
         for(VoteMessage voteMessage : voteList) {
