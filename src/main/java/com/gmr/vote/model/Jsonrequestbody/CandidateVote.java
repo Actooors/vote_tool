@@ -10,7 +10,15 @@ import java.util.List;
  * @author: ggmr
  * @create: 2018-06-16 21:14
  */
-@Data
+
 public class CandidateVote {
+    public List<VoteMessage> getData() {
+        return data;
+    }
+
+    public void setData(List<VoteMessage> data) {
+        this.data = data;
+    }
+
     List<VoteMessage> data;
 }

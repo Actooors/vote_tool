@@ -1,15 +1,15 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    username:
-    password:
-    url:
+    username: root
+    password: SHU_1606
+    url: jdbc:mysql://10.10.0.145:3306/vote?characterEncoding=utf-8&useSSL=false
 
 
 server:
   servlet:
     context-path: /api
-  port: 8080
+  port: 8081
 
 
 

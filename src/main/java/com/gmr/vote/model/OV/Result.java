@@ -9,8 +9,32 @@ import lombok.Data;
  * @author: ggmr
  * @create: 2018-06-16 20:07
  */
-@Data
+
 public class Result<T> {
+    public ResultCode getCode() {
+        return code;
+    }
+
+    public void setCode(ResultCode code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
     private ResultCode code;
     private String message;
     private T data;

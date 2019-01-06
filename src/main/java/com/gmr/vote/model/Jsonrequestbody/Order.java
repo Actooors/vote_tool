@@ -8,7 +8,15 @@ import lombok.Data;
  * @author: ggmr
  * @create: 2018-06-18 12:42
  */
-@Data
+
 public class Order {
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
+    }
+
     private Integer order;
 }

@@ -8,7 +8,14 @@ import lombok.Data;
  * @author: ggmr
  * @create: 2018-06-17 01:49
  */
-@Data
 public class Voters {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     private String name;
 }

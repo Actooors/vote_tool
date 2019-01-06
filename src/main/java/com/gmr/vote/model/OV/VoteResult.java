@@ -11,7 +11,15 @@ import java.util.List;
  * @author: ggmr
  * @create: 2018-06-16 22:19
  */
-@Data
+
 public class VoteResult {
+    public List<VoteMessage> getVoteMessageList() {
+        return voteMessageList;
+    }
+
+    public void setVoteMessageList(List<VoteMessage> voteMessageList) {
+        this.voteMessageList = voteMessageList;
+    }
+
     List<VoteMessage> voteMessageList;
 }

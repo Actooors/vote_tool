@@ -8,7 +8,15 @@ import lombok.Data;
  * @author: ggmr
  * @create: 2018-06-19 23:53
  */
-@Data
+
 public class CountNum {
+    public Integer getCountNum() {
+        return countNum;
+    }
+
+    public void setCountNum(Integer countNum) {
+        this.countNum = countNum;
+    }
+
     private Integer countNum;
 }
