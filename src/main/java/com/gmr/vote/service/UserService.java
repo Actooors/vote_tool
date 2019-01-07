@@ -65,7 +65,7 @@ public class UserService {
                 response.setToken(JwtUtil.createJwt(user.getUid()));
                 response.setIdentity(existedUser.getType());
                 VoteMaxNum voteMaxNum = new VoteMaxNum();
-                voteMaxNum.setGroupMaxVoteNum(9);
+                voteMaxNum.setGroupMaxVoteNum(5);
                 voteMaxNum.setPartMaxVoteNum(27);
                 response.setVoteMaxNum(voteMaxNum);
                 return ResultTool.success(response);

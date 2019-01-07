@@ -10,7 +10,6 @@ import lombok.Data;
  */
 @Data
 public class VoteMessage {
-    // 1投票 2反对 3弃权
     private Integer voted;
     private String name;
 }

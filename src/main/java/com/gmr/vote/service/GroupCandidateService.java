@@ -54,14 +54,15 @@ public class GroupCandidateService {
                 cou++;
             }
         }
-        if(cou > 9) {
-            return ResultTool.error("投票人数不能多于9");
+        if(cou > 5) {
+            return ResultTool.error("投票人数不能多于5");
         }
         int count = 0;
         for(VoteMessage voteMessage : voteList) {
             GroupCandidateExample groupCandidateExample = new GroupCandidateExample();
             groupCandidateExample.createCriteria()
                     .andGroupCandidateNameEqualTo(java.net.URLDecoder.decode(voteMessage.getName(), "utf-8"));
+//                      .andGroupCandidateNameEqualTo(voteMessage.getName());
             GroupCandidate groupCandidate = groupCandidateMapper.selectByExample(groupCandidateExample).get(0);
             switch (voteMessage.getVoted()) {
                 case 1 : {
@@ -78,6 +79,7 @@ public class GroupCandidateService {
                     break;
                 }
                 default:
+                    break;
             }
             groupCandidateMapper.updateByPrimaryKeySelective(groupCandidate);
         }
