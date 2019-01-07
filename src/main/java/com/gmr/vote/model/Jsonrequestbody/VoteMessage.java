@@ -10,6 +10,7 @@ import lombok.Data;
  */
 
 public class VoteMessage {
+<<<<<<< HEAD
     public Integer getVoted() {
         return voted;
     }
@@ -27,6 +28,8 @@ public class VoteMessage {
     }
 
     // 0投票 1反对 2弃权
+=======
+>>>>>>> c2b63351b236d105ed8c211c5c3c6e5bb83aa8be
     private Integer voted;
     private String name;
 }

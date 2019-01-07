@@ -62,22 +62,24 @@ public class GroupCandidateService {
             GroupCandidateExample groupCandidateExample = new GroupCandidateExample();
             groupCandidateExample.createCriteria()
                     .andGroupCandidateNameEqualTo(java.net.URLDecoder.decode(voteMessage.getName(), "utf-8"));
+//                      .andGroupCandidateNameEqualTo(voteMessage.getName());
             GroupCandidate groupCandidate = groupCandidateMapper.selectByExample(groupCandidateExample).get(0);
             switch (voteMessage.getVoted()) {
-                case 1 : {
+                case 0 : {
                     count++;
                     groupCandidate.setVotesNumber(groupCandidate.getVotesNumber() + 1);
                     break;
                 }
-                case 2 : {
+                case 1 : {
                     groupCandidate.setVotesAgainstNumber(groupCandidate.getVotesAgainstNumber() + 1);
                     break;
                 }
-                case 3: {
+                case 2: {
                     groupCandidate.setVotesAbandonNumber(groupCandidate.getVotesAbandonNumber() + 1);
                     break;
                 }
                 default:
+                    break;
             }
             groupCandidateMapper.updateByPrimaryKeySelective(groupCandidate);
         }

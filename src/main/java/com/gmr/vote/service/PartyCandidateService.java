@@ -68,16 +68,16 @@ public class PartyCandidateService {
                     .andPartyCandidateNameEqualTo(java.net.URLDecoder.decode(voteMessage.getName(), "utf-8"));
             PartyCandidate partyCandidate = partyCandidateMapper.selectByExample(partyCandidateExample).get(0);
             switch (voteMessage.getVoted()) {
-                case 1 : {
+                case 0 : {
                     count++;
                     partyCandidate.setVotesNumber(partyCandidate.getVotesNumber() + 1);
                     break;
                 }
-                case 2 : {
+                case 1 : {
                     partyCandidate.setVotesAgainstNumber(partyCandidate.getVotesAgainstNumber() + 1);
                     break;
                 }
-                case 3: {
+                case 2: {
                     partyCandidate.setVotesAbandonNumber(partyCandidate.getVotesAbandonNumber() + 1);
                     break;
                 }
