@@ -64,16 +64,16 @@ public class GroupCandidateService {
                     .andGroupCandidateNameEqualTo(java.net.URLDecoder.decode(voteMessage.getName(), "utf-8"));
             GroupCandidate groupCandidate = groupCandidateMapper.selectByExample(groupCandidateExample).get(0);
             switch (voteMessage.getVoted()) {
-                case 0 : {
+                case 1 : {
                     count++;
                     groupCandidate.setVotesNumber(groupCandidate.getVotesNumber() + 1);
                     break;
                 }
-                case 1 : {
+                case 2 : {
                     groupCandidate.setVotesAgainstNumber(groupCandidate.getVotesAgainstNumber() + 1);
                     break;
                 }
-                case 2: {
+                case 3: {
                     groupCandidate.setVotesAbandonNumber(groupCandidate.getVotesAbandonNumber() + 1);
                     break;
                 }
