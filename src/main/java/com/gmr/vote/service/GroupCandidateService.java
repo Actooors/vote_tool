@@ -2,6 +2,7 @@ package com.gmr.vote.service;
 
 import com.gmr.vote.dao.GroupCandidateMapper;
 import com.gmr.vote.dao.UserMapper;
+import com.gmr.vote.dao.VoteConfigMapper;
 import com.gmr.vote.dao.VoteNumberMapper;
 import com.gmr.vote.model.Jsonrequestbody.CandidateVote;
 import com.gmr.vote.model.Jsonrequestbody.Order;
@@ -36,6 +37,9 @@ public class GroupCandidateService {
 
     @Resource
     private UserMapper userMapper;
+
+    @Resource
+    private VoteConfigMapper voteConfigMapper;
     /**
      * @Description: 具体实现类
      * @Param: [voteList]
@@ -54,8 +58,9 @@ public class GroupCandidateService {
                 cou++;
             }
         }
-        if(cou > 5) {
-            return ResultTool.error("投票人数不能多于5");
+        VoteConfig voteConfig = voteConfigMapper.selectByPrimaryKey(2);
+        if(cou > voteConfig.getElectnumber()) {
+            return ResultTool.error("投票人数不能多于" + voteConfig.getElectnumber());
         }
         int count = 0;
         for(VoteMessage voteMessage : voteList) {

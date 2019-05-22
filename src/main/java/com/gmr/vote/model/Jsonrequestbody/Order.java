@@ -1,6 +1,5 @@
 package com.gmr.vote.model.Jsonrequestbody;
 
-import lombok.Data;
 
 /**
  * @program: vote

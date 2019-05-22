@@ -1,7 +1,6 @@
 package com.gmr.vote.model.OV;
 
 import com.gmr.vote.model.Jsonrequestbody.VoteMessage;
-import lombok.Data;
 
 import java.util.List;
 

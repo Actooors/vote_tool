@@ -44,4 +44,22 @@ public class UserController {
         String userId = JwtUtil.parseJwt(token);
         return userService.getGroupVoteNum(userId);
     }
+
+    @GetMapping(value = "voteName")
+    public Result getTotalName(HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization");
+        if(token == null) {
+            return ResultTool.error("请登录");
+        }
+        return userService.getTotalName();
+    }
+
+    @GetMapping(value = "menu")
+    public Result getMenu(HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization");
+        if(token == null) {
+            return ResultTool.error("请登录");
+        }
+        return userService.getMenu();
+    }
 }

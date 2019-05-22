@@ -1,6 +1,5 @@
 package com.gmr.vote.model.OV;
 
-import lombok.Data;
 
 /**
  * @program: vote

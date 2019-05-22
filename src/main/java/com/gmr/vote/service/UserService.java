@@ -1,6 +1,7 @@
 package com.gmr.vote.service;
 
 import com.gmr.vote.dao.UserMapper;
+import com.gmr.vote.dao.VoteConfigMapper;
 import com.gmr.vote.model.Jsonrequestbody.LoginUser;
 import com.gmr.vote.model.OV.CountNum;
 import com.gmr.vote.model.OV.Result;
@@ -8,11 +9,14 @@ import com.gmr.vote.model.OV.TokenResponse;
 import com.gmr.vote.model.OV.VoteMaxNum;
 import com.gmr.vote.model.ResultTool;
 import com.gmr.vote.model.entity.User;
+import com.gmr.vote.model.entity.VoteConfig;
+import com.gmr.vote.model.entity.VoteConfigExample;
 import com.gmr.vote.tools.AuthTool;
 import com.gmr.vote.tools.JwtUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 
 /**
  * @program: vote
@@ -26,6 +30,9 @@ public class UserService {
     @Resource
     private UserMapper userMapper;
 
+
+    @Resource
+    private VoteConfigMapper voteConfigMapper;
 
 
     /**
@@ -49,8 +56,28 @@ public class UserService {
         return ResultTool.success(countNum);
     }
 
+    /**
+     * @Description: 获取计票的大标题
+     * @Author: 0GGmr0
+     * @Date: 2019-05-22
+     */
+    public Result getTotalName() {
+        VoteConfig voteConfig = voteConfigMapper.selectByPrimaryKey(1);
+        return ResultTool.success(new HashMap<String,String>(){
+            {put("voteName",voteConfig.getConferenceName());}
+        });
+    }
 
-
+    public Result getMenu() {
+        VoteConfig voteConfig1 = voteConfigMapper.selectByPrimaryKey(1);
+        VoteConfig voteConfig2 = voteConfigMapper.selectByPrimaryKey(2);
+        return ResultTool.success(new HashMap<String,String>(){
+            {put("name1",voteConfig1.getVoteName());
+             put("name2",voteConfig2.getVoteName());}
+        });
+    }
+        
+        
     public Result login(LoginUser user) {
         if (user == null || user.getUid() == null || "".equals(user.getUid()) || user.getPassword() == null || "".equals(user.getPassword())) {
             return ResultTool.error("账号或密码不能为空");
@@ -64,9 +91,11 @@ public class UserService {
                 TokenResponse response = new TokenResponse();
                 response.setToken(JwtUtil.createJwt(user.getUid()));
                 response.setIdentity(existedUser.getType());
+                VoteConfig voteConfig1 = voteConfigMapper.selectByPrimaryKey(1);
+                VoteConfig voteConfig2 = voteConfigMapper.selectByPrimaryKey(2);
                 VoteMaxNum voteMaxNum = new VoteMaxNum();
-                voteMaxNum.setGroupMaxVoteNum(5);
-                voteMaxNum.setPartMaxVoteNum(27);
+                voteMaxNum.setGroupMaxVoteNum(voteConfig2.getCandicatenumber());
+                voteMaxNum.setPartMaxVoteNum(voteConfig1.getCandicatenumber());
                 response.setVoteMaxNum(voteMaxNum);
                 return ResultTool.success(response);
             } else {
