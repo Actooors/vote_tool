@@ -94,8 +94,8 @@ public class UserService {
                 VoteConfig voteConfig1 = voteConfigMapper.selectByPrimaryKey(1);
                 VoteConfig voteConfig2 = voteConfigMapper.selectByPrimaryKey(2);
                 VoteMaxNum voteMaxNum = new VoteMaxNum();
-                voteMaxNum.setGroupMaxVoteNum(voteConfig2.getCandicatenumber());
-                voteMaxNum.setPartMaxVoteNum(voteConfig1.getCandicatenumber());
+                voteMaxNum.setGroupMaxVoteNum(voteConfig2.getElectnumber());
+                voteMaxNum.setPartMaxVoteNum(voteConfig1.getElectnumber());
                 response.setVoteMaxNum(voteMaxNum);
                 return ResultTool.success(response);
             } else {
