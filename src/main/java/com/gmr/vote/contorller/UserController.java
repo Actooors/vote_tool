@@ -47,19 +47,13 @@ public class UserController {
 
     @GetMapping(value = "voteName")
     public Result getTotalName(HttpServletRequest httpServletRequest) {
-        String token = httpServletRequest.getHeader("Authorization");
-        if(token == null) {
-            return ResultTool.error("请登录");
-        }
+
         return userService.getTotalName();
     }
 
     @GetMapping(value = "menu")
     public Result getMenu(HttpServletRequest httpServletRequest) {
-        String token = httpServletRequest.getHeader("Authorization");
-        if(token == null) {
-            return ResultTool.error("请登录");
-        }
+
         return userService.getMenu();
     }
 }
