@@ -30,7 +30,7 @@ public class LoginController {
      * @Author: ggmr
      * @Date: 18-6-17
      */
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @PostMapping
     public Result<TokenResponse> login(@RequestBody LoginUser loginUser) {
         return userService.login(loginUser);
     }
